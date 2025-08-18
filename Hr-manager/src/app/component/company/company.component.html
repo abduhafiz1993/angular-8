@@ -1,23 +1,43 @@
 <h1>Company Page</h1>
-<form (ngSubmit)="add()">
-  <input [(ngModel)]="newCompanyName" name="companyName" placeholder="Company name" required />
-  <input [(ngModel)]="newCompanyLocation" name="companyLocation" placeholder="Location" required />
-  <button type="submit">Add Company</button>
+
+<form (ngSubmit)="add()" class="mat-elevation-z2" style="padding:16px; margin-bottom:24px;">
+  <mat-form-field appearance="outline" style="margin-right:16px;">
+    <mat-label>Company name</mat-label>
+    <input matInput [(ngModel)]="newCompanyName" name="companyName" required />
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="margin-right:16px;">
+    <mat-label>Location</mat-label>
+    <input matInput [(ngModel)]="newCompanyLocation" name="companyLocation" required />
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Add Company</button>
 </form>
-<ul>
-  <li *ngFor="let company of companies">
-    <span *ngIf="!editCompany || editCompany.id !== company.id">
-      {{ company.name }} - {{ company.location }}
-      <button (click)="startEdit(company)">Edit</button>
-      <button (click)="delete(company.id)">Delete</button>
-    </span>
-    <span *ngIf="editCompany && editCompany.id === company.id">
-      <form (ngSubmit)="update()">
-        <input [(ngModel)]="editCompany.name" name="editName{{company.id}}" required />
-        <input [(ngModel)]="editCompany.location" name="editLocation{{company.id}}" required />
-        <button type="submit">Update</button>
-        <button type="button" (click)="cancelEdit()">Cancel</button>
+
+<mat-list>
+  <mat-list-item *ngFor="let company of companies">
+    <div *ngIf="!editCompany || editCompany.id !== company.id" style="width:100%; display:flex; align-items:center; justify-content:space-between;">
+      <span>{{ company.name }} - {{ company.location }}</span>
+      <span>
+        <button mat-icon-button color="accent" (click)="startEdit(company)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="delete(company.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </span>
+    </div>
+    <div *ngIf="editCompany && editCompany.id === company.id" style="width:100%;">
+      <form (ngSubmit)="update()" style="display:flex; align-items:center;">
+        <mat-form-field appearance="outline" style="margin-right:16px;">
+          <mat-label>Edit name</mat-label>
+          <input matInput [(ngModel)]="editCompany.name" name="editName{{company.id}}" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="margin-right:16px;">
+          <mat-label>Edit location</mat-label>
+          <input matInput [(ngModel)]="editCompany.location" name="editLocation{{company.id}}" required />
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" style="margin-right:8px;">Update</button>
+        <button mat-raised-button type="button" (click)="cancelEdit()">Cancel</button>
       </form>
-    </span>
-  </li>
-</ul>
+    </div>
+  </mat-list-item>
+</mat-list>

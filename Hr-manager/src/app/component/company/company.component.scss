@@ -1,0 +1,42 @@
+.company-form {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.company-list-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.company-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.company-info {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.company-actions button {
+  margin-left: 8px;
+  transition: background 0.2s;
+}
+
+.company-actions button:hover {
+  background: #f5f5f5;
+}
+
+.company-edit-form {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.company-edit-form button {
+  margin-left: 8px;
+}
