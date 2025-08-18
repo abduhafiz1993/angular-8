@@ -15,9 +15,8 @@ export class InMemeoryDataService implements InMemoryDbService{
     return {companies};
   }
 
-   genId<T extends { id: number }>(collection: T[]): number {
-    return collection?.length ? Math.max(...collection.map(i => i.id)) + 1 : 1;
+genId(companies: Company[]): number {
+    return companies.length > 0 ? Math.max(...companies.map(h => h.id)) + 1 : 1;
   }
-
   constructor() { }
 }

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CompanyComponent } from './component/company/company.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemeoryDataService } from './services/in-memeory-data.service';
+import { FormsModule } from '@angular/forms'; 
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { InMemeoryDataService } from './services/in-memeory-data.service';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
 
