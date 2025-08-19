@@ -37,7 +37,6 @@
 
         <mat-form-field appearance="outline" style="margin-right:16px;">
           <mat-label>Edit Status </mat-label>
-            <mat-label>Favorite food</mat-label>
   <mat-select
   [(ngModel)]="editCandidate.status"
       name="editStatus{{candidate.id}}"
@@ -56,15 +55,36 @@
   </mat-tab>
 
   <mat-tab label="Add Candidate">
-    <form class="mat-elevation-z2" style="padding:16px; margin-bottom:24px;">
+    <form  (ngSubmit) = "add()" class="mat-elevation-z2" style="padding:16px; margin-bottom:24px;">
+
       <mat-form-field appearance="outline" style="margin-right:16px;">
-        <mat-label>Candidate name</mat-label>
-        <input matInput name="candidateName" required />
+        <mat-label>Candidate Full Name</mat-label>
+        <input matInput name="candidateName"  [(ngModel)] = "newCandidateName" required />
       </mat-form-field>
+
+      <mat-form-field appearance="outline" style="margin-right:16px;">
+        <mat-label>Candidate Email</mat-label>
+        <input matInput name="candidateEmail" [(ngModel)] = "newCandidateEmail" required />
+      </mat-form-field>
+
       <mat-form-field appearance="outline" style="margin-right:16px;">
         <mat-label>Candidate Applied Position</mat-label>
-        <input matInput name="candidateAppliedPosition" required />
+        <input matInput name="candidateAppliedPosition" [(ngModel)] = "newCandidateAppliedPosition" required />
       </mat-form-field>
+
+      <mat-form-field appearance="outline" style="margin-right:16px;">
+        <mat-label>Candidate Status </mat-label>
+        <mat-select
+          name="candidateStatus"
+          [(ngModel)]="newStatus"
+          required
+        >
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <button mat-raised-button color="primary" type="submit">Add Candidate</button>
     </form>
   </mat-tab>

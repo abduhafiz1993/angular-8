@@ -40,7 +40,7 @@ export class CandidateComponent implements OnInit {
     );
   }
   add() {
-    if (!this.newCandidateName.trim() || !this.newCandidateAppliedPosition.trim()) return;
+    if (!this.newCandidateName.trim() || !this.newCandidateAppliedPosition.trim() || !this.newCandidateEmail.trim() || !this.newStatus.trim() ) return;
     const newCandidate: Candidate = {
       id: 0, // In-memory-data-service will assign the id
       fullName: this.newCandidateName,
