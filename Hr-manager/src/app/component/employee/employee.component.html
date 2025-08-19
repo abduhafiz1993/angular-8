@@ -2,21 +2,11 @@
   <mat-tab label="Employees">
     <h2> Employees </h2>
     <mat-list>
-      <mat-list-item>
+    <mat-list-item *ngFor = "let employee of employees" >
         <div style="width:100%; display:flex; align-items:center; justify-content:space-between;">
-          <span>Employee Name - Employee Department - Company - Salary</span>
+          <span>{{ employee.firstName }} {{ employee.lastName }}- {{ employee.email }} - {{ employee.department }} - {{ employee.company }} - {{ employee.salary }}</span>
           <span>
-          </span>
-        </div>
-      </mat-list-item>
-    <mat-list-item>
-        <div style="width:100%; display:flex; align-items:center; justify-content:space-between;">
-          <span>Employee Name - Employee Department - Company - Salary</span>
-          <span>
-            <button mat-icon-button color="accent">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn">
+            <button mat-icon-button color="warn" (click) = "delete(employee.id)" >
               <mat-icon>delete</mat-icon>
             </button>
           </span>
@@ -26,28 +16,41 @@
   </mat-tab>
 
   <mat-tab label="Add Employee">
-    <form class="mat-elevation-z2" style="padding:16px; margin-bottom:24px;">
+    <form (ngSubmit) = "add()" class="mat-elevation-z2" style="padding:16px; margin-bottom:24px;">
+
       <mat-form-field appearance="outline" style="margin-right:16px;">
         <mat-label>Employee First Name</mat-label>
-        <input matInput name="firstName" required />
+        <input matInput name="firstName" type = "text" [(ngModel)]="newEmployeeFirstName" />
       </mat-form-field>
+
       <mat-form-field appearance="outline" style="margin-right:16px;">
         <mat-label>Employee Last Name</mat-label>
-        <input matInput name="lastName" required />
+        <input matInput name="lastName" type = "text" [(ngModel)]="newEmployeeLastName" />
       </mat-form-field>
+
+
+      <mat-form-field appearance="outline" style="margin-right:16px;">
+        <mat-label>Employee - Email</mat-label>
+        <input matInput name="email" type= "email" [(ngModel)]="newEmployeeEmail" />
+      </mat-form-field>
+
       <mat-form-field appearance="outline" style="margin-right:16px;">
         <mat-label>Employee Department</mat-label>
-        <input matInput name="department" required />
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="margin-right:16px;">
-        <mat-label>Employee Company</mat-label>
-        <input matInput name="company" required />
+        <mat-select 
+      name = " DepartmentName "
+      [(ngModel)] = "newEmployeeDepartmentId"
+      >
+        <mat-option *ngFor="let department of departments " [value]="department.id">
+          {{ department.name  }} - {{ getCompanyName(department.companyId) }}
+        </mat-option>
+      </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" style="margin-right:16px;">
         <mat-label>Employee Salary</mat-label>
-        <input matInput name="salary" required type="number" />
+        <input matInput name="salary" type="number" [(ngModel)]="newEmployeeSalaryId" />
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit">Add Employee </button>
     </form>
   </mat-tab>
 </mat-tab-group>
+ 

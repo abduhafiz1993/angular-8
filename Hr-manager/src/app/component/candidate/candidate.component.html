@@ -1,3 +1,4 @@
+
 <mat-tab-group>
   <mat-tab label="Candidates">
     <h2>Candidates</h2>
@@ -59,17 +60,17 @@
 
       <mat-form-field appearance="outline" style="margin-right:16px;">
         <mat-label>Candidate Full Name</mat-label>
-        <input matInput name="candidateName"  [(ngModel)] = "newCandidateName" required />
+        <input matInput name="candidateName" type="text"  [(ngModel)] = "newCandidateName"  />
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="margin-right:16px;">
         <mat-label>Candidate Email</mat-label>
-        <input matInput name="candidateEmail" [(ngModel)] = "newCandidateEmail" required />
+        <input matInput name="candidateEmail" type="email" [(ngModel)] = "newCandidateEmail"  />
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="margin-right:16px;">
         <mat-label>Candidate Applied Position</mat-label>
-        <input matInput name="candidateAppliedPosition" [(ngModel)] = "newCandidateAppliedPosition" required />
+        <input matInput name="candidateAppliedPosition" type="text" [(ngModel)] = "newCandidateAppliedPosition"  />
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="margin-right:16px;">
@@ -77,7 +78,6 @@
         <mat-select
           name="candidateStatus"
           [(ngModel)]="newStatus"
-          required
         >
           <mat-option *ngFor="let food of foods" [value]="food.value">
             {{food.viewValue}}

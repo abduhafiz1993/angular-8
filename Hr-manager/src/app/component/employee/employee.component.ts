@@ -16,11 +16,16 @@ import { SalaryService } from 'src/app/services/salary.service';
 })
 export class EmployeeComponent implements OnInit {
 
-  employees: Employee[] = [];
+  employeesList: Employee[] = [];
+  employees = [];
   departments: Department[] = [];
   companies: Company[] = [];
   salaries: Salary[] = [];
-
+  newEmployeeFirstName = '';
+  newEmployeeLastName = '';
+  newEmployeeEmail = '';
+  newEmployeeDepartmentId: number | null = null;
+  newEmployeeSalaryId: number | null = null;
 
   constructor(
     private employeeService: EmployeeService,
@@ -30,16 +35,30 @@ export class EmployeeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadEmployees();
     this.loadDepartments();
     this.loadCompanies();
     this.loadSalaries();
+    this.loadEmployees();
   }
 
   loadEmployees() {
     this.employeeService.getEmployees().subscribe(
       (data) => {
-        this.employees = data;
+        this.employeesList = data;
+        this.employees = this.employeesList.map(employee => {
+          const department = this.departments.find(d => d.id === employee.departmentId);
+          const companies = this.companies.find(c => c.id === department.companyId);
+          const salaries = this.salaries.find(s => s.id === employee.salaryId);
+          return {
+            id: employee.id,
+            firstName: employee.firstName,
+            lastName: employee.lastName,
+            email: employee.email,
+            department: department ? department.name : 'Unknown Department',
+            company: companies ? companies.name : 'Unknown Company',
+            salary: salaries ? salaries.amount : 0
+          };
+        });
       },
       (error) => {
         console.error('Error fetching employees:', error);
@@ -80,4 +99,45 @@ export class EmployeeComponent implements OnInit {
     );
   }
 
+  add(){
+    if(!this.newEmployeeFirstName.trim() || !this.newEmployeeLastName.trim() || !this.newEmployeeEmail.trim() || !this.newEmployeeDepartmentId || !this.newEmployeeSalaryId) {
+      return;
+    }
+
+    const newEmployee: Employee = {
+      id: 0,
+      firstName: this.newEmployeeFirstName,
+      lastName: this.newEmployeeLastName,
+      email: this.newEmployeeEmail,
+      departmentId: this.newEmployeeDepartmentId,
+      salaryId: this.newEmployeeSalaryId
+    };
+
+    this.employeeService.createEmployee(newEmployee).subscribe(
+      () => {
+        this.loadEmployees();
+        this.newEmployeeFirstName = '';
+        this.newEmployeeLastName = '';
+        this.newEmployeeEmail = '';
+        this.newEmployeeDepartmentId = null;
+        this.newEmployeeSalaryId = null;
+      },
+      (error) => {
+        console.error('Error adding employee:', error);
+      }
+    );
+  }
+
+  delete(id: number){
+    this.employeeService.deleteEmployee(id).subscribe(
+      ()=>{
+        this.employees = this.employees.filter(employee => employee.id !== id);
+      });
+
+  }
+
+  getCompanyName(companyIds: number): string {
+  const company = this.companies.find(c => c.id === companyIds);
+  return company ? company.name : 'Unknown Company';
+}
 }

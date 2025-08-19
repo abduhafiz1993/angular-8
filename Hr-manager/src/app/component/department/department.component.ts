@@ -11,8 +11,10 @@ import { CompanyService } from 'src/app/services/company.service';
 })
 export class DepartmentComponent implements OnInit {
 
-  departments: Department[] = [];
+  
+  departments = [];
   companies: Company[] = [];
+  departmentsList: Department[] = [];
   newDepartmentName = '';
   newDepartmentCompanyId: number | null = null;
   editDepartment: Department | null = null;
@@ -22,14 +24,23 @@ export class DepartmentComponent implements OnInit {
     private companyService: CompanyService) { }
 
   ngOnInit() {
-    this.loadDepartments();
     this.loadCompanies();
+    this.loadDepartments();
   }
 
   loadDepartments() {
     this.departmentService.getDepartments().subscribe(
-      (data) => {
-        this.departments = data;
+(departments) => {
+      this.departmentsList = departments;
+      // Populate departmentsList with department and company names
+      this.departments = this.departmentsList.map(department => {
+        const companies = this.companies.find(c => c.id === department.companyId);
+        return {
+          id: department.id,
+          departmentName: department.name,
+          companyName: companies ? companies.name : 'Unknown Company' // Fallback if no matching company
+        };
+      });
       },
       (error) => {
         console.error('Error fetching departments:', error);
@@ -46,32 +57,48 @@ export class DepartmentComponent implements OnInit {
       }
     );
   }
-  add(departmentName: string, companyId: number | null) {
-    if (!departmentName.trim() || !companyId) return;
-    const newDepartment: Department = {
-      id: 0, // In-memory-data-service will assign the id
-      name: departmentName,
-      companyId: companyId
-    };
-    this.departmentService.addDepartment(newDepartment)
-      .subscribe(department => {
-        this.departments.push(department);
-      });
-  }
+  
 
-  startEdit(department: Department) {
-    this.editDepartment = {...department};
-  }
 
-  saveEdit() {
-    if (this.editDepartment) {
-      this.departmentService.updateDepartment(this.editDepartment)
-        .subscribe(() => {
-          this.loadDepartments();
-          this.editDepartment = null;
-        });
+  add(){
+    if(!this.newDepartmentName.trim() || !this.newDepartmentCompanyId) {
+      return;
     }
+
+    const newDepartment: Department = {
+      id: 0,
+      name: this.newDepartmentName,
+      companyId: this.newDepartmentCompanyId
+    };
+
+    this.departmentService.addDepartment(newDepartment).subscribe(
+      () => {
+        this.loadDepartments();
+        this.newDepartmentName = '';
+        this.newDepartmentCompanyId = null;
+      },
+      (error) => {
+        console.error('Error adding department:', error);
+      }
+    );
   }
+
+
+
+  startEdit( department ) {
+    this.editDepartment = department;
+  }
+
+
+  update(){
+    if(!this.editDepartment) return;
+    this.departmentService.updateDepartment(this.editDepartment).subscribe(
+      updatedDepartment => {
+        this.editDepartment.name = updatedDepartment.name;
+        this.editDepartment.companyId = updatedDepartment.companyId;
+  });
+}
+
   cancelEdit() {
     this.editDepartment = null;
   }
