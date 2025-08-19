@@ -14,11 +14,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
+import { DepartmentComponent } from './component/department/department.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CompanyComponent
+    CompanyComponent,
+    DepartmentComponent
   ],
   imports: [
     BrowserModule,
