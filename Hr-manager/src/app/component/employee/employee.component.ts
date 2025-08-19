@@ -5,7 +5,9 @@ import { Department } from 'src/app/models/department.model';
 import { DepartmentService } from 'src/app/services/department.service';
 import { Company } from 'src/app/models/company.model';
 import { CompanyService } from 'src/app/services/company.service';
-import { Observable } from 'rxjs';
+import { Salary } from 'src/app/models/salary.model';
+import { SalaryService } from 'src/app/services/salary.service';
+
 
 @Component({
   selector: 'app-employee',
@@ -17,18 +19,21 @@ export class EmployeeComponent implements OnInit {
   employees: Employee[] = [];
   departments: Department[] = [];
   companies: Company[] = [];
+  salaries: Salary[] = [];
 
 
   constructor(
     private employeeService: EmployeeService,
     private departmentService: DepartmentService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private salaryService: SalaryService
   ) { }
 
   ngOnInit() {
     this.loadEmployees();
     this.loadDepartments();
     this.loadCompanies();
+    this.loadSalaries();
   }
 
   loadEmployees() {
@@ -64,6 +69,15 @@ export class EmployeeComponent implements OnInit {
     );
   }
 
-  
+  loadSalaries() {
+    this.salaryService.getSalaries().subscribe(
+      (data) => {
+        this.salaries = data;
+      },
+      (error) => {
+        console.error('Error fetching salaries:', error);
+      }
+    );
+  }
 
 }

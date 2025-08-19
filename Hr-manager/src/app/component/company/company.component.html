@@ -1,17 +1,6 @@
-<h1>Company Page</h1>
-
-<form (ngSubmit)="add()" class="mat-elevation-z2" style="padding:16px; margin-bottom:24px;">
-  <mat-form-field appearance="outline" style="margin-right:16px;">
-    <mat-label>Company name</mat-label>
-    <input matInput [(ngModel)]="newCompanyName" name="companyName" required />
-  </mat-form-field>
-  <mat-form-field appearance="outline" style="margin-right:16px;">
-    <mat-label>Location</mat-label>
-    <input matInput [(ngModel)]="newCompanyLocation" name="companyLocation" required />
-  </mat-form-field>
-  <button mat-raised-button color="primary" type="submit">Add Company</button>
-</form>
-
+<mat-tab-group>
+  <mat-tab label="Companies">
+    <h2>Companies</h2>
 <mat-list>
   <mat-list-item *ngFor="let company of companies">
     <div *ngIf="!editCompany || editCompany.id !== company.id" style="width:100%; display:flex; align-items:center; justify-content:space-between;">
@@ -41,3 +30,18 @@
     </div>
   </mat-list-item>
 </mat-list>
+</mat-tab>
+  <mat-tab label="Add Company">
+    <form (ngSubmit)="add()" class="mat-elevation-z2" style="padding:16px; margin-bottom:24px;">
+  <mat-form-field appearance="outline" style="margin-right:16px;">
+    <mat-label>Company name</mat-label>
+    <input matInput [(ngModel)]="newCompanyName" name="companyName" required />
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="margin-right:16px;">
+    <mat-label>Location</mat-label>
+    <input matInput [(ngModel)]="newCompanyLocation" name="companyLocation" required />
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Add Company</button>
+</form>
+  </mat-tab>
+</mat-tab-group>

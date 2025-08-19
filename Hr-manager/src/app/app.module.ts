@@ -22,6 +22,9 @@ import { MatCardModule } from '@angular/material/card';
 import { SalaryComponent } from './component/salary/salary.component';
 import { EmployeeComponent } from './component/employee/employee.component';
 import { CandidateComponent } from './component/candidate/candidate.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { CandidateComponent } from './component/candidate/candidate.component';
     DepartmentComponent,
     SalaryComponent,
     EmployeeComponent,
-    CandidateComponent
+    CandidateComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +52,9 @@ import { CandidateComponent } from './component/candidate/candidate.component';
     MatSelectModule,
     MatTableModule,
     MatCardModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    
 
     // Fake backend
     HttpClientInMemoryWebApiModule.forRoot(InMemeoryDataService, {

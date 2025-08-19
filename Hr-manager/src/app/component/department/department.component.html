@@ -1,11 +1,42 @@
 <mat-tab-group>
-  <mat-tab label="Departement">
-    <h2>Departements</h2>
-    <mat-list-item *ngFor="let department of departments">
+  <mat-tab label="Departments">
+    <h2>Departments</h2>
+    <mat-list>
+      <mat-list-item>
+        <div style="width:100%; display:flex; align-items:center; justify-content:space-between;">
+          <span>Department Name - Company Name</span>
+          <span>
+            <button mat-icon-button color="accent">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-tab>
 
-    </mat-list-item>
-</mat-tab>
-  <mat-tab label="Add Departement">
+  <mat-tab label="Add Department">
+    <form class="mat-elevation-z2" style="padding:16px; margin-bottom:24px;">
+      <mat-form-field appearance="outline" style="margin-right:16px;">
+        <mat-label>Department Name</mat-label>
+        <input matInput name="departmentName" required />
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="margin-right:16px;">
+        <mat-label>Company Name</mat-label>
+    <mat-select>
+    <mat-option >
+      option one
+    </mat-option>
+    <mat-option >
+      option two
+    </mat-option>
     
+  </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Add Department</button>
+    </form>
   </mat-tab>
 </mat-tab-group>

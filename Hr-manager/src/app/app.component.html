@@ -1,1 +1,17 @@
-<app-department></app-department>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+<mat-list role="list">
+<mat-toolbar>
+  <span>HR-Managemnt App</span>
+</mat-toolbar>
+  <mat-list-item role="listitem"> <a routerLink="/dashboard" routerLinkActive="active" >Dashboard</a></mat-list-item>
+  <mat-list-item role="listitem"> <a routerLink="/companies" routerLinkActive="active" >Companies</a></mat-list-item>
+  <mat-list-item role="listitem"> <a routerLink="/departments" routerLinkActive="active" >Departments</a></mat-list-item>
+  <mat-list-item role="listitem"> <a routerLink="/employees" routerLinkActive="active" >Employees</a></mat-list-item>
+  <mat-list-item role="listitem"> <a routerLink="/candidates" routerLinkActive="active" >Candidates</a></mat-list-item>
+</mat-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

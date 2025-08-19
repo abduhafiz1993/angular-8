@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CandidateService } from 'src/app/services/candidate.service';
+import { Candidate } from 'src/app/models/candidate.model';
+
 
 @Component({
   selector: 'app-candidate',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CandidateComponent implements OnInit {
 
-  constructor() { }
+  candidates: Candidate[] = [];
+
+  constructor(private candidateService: CandidateService) { }
 
   ngOnInit() {
+    this.loadCandidates();
   }
+
+  loadCandidates() {
+    this.candidateService.getCandidates().subscribe(
+      (data) => {
+        this.candidates = data;
+      },
+      (error) => {
+        console.error('Error fetching candidates:', error);
+      }
+    );
+  }
+  
 
 }
