@@ -14,13 +14,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
+import {MatTabsModule} from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 import { DepartmentComponent } from './component/department/department.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { SalaryComponent } from './component/salary/salary.component';
+import { EmployeeComponent } from './component/employee/employee.component';
+import { CandidateComponent } from './component/candidate/candidate.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CompanyComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    SalaryComponent,
+    EmployeeComponent,
+    CandidateComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +44,10 @@ import { DepartmentComponent } from './component/department/department.component
     MatButtonModule,
     MatListModule,
     MatIconModule,
+    MatTabsModule,
+    MatSelectModule,
+    MatTableModule,
+    MatCardModule,
 
     // Fake backend
     HttpClientInMemoryWebApiModule.forRoot(InMemeoryDataService, {
