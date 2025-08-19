@@ -19,7 +19,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { DepartmentComponent } from './component/department/department.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
-import { SalaryComponent } from './component/salary/salary.component';
 import { EmployeeComponent } from './component/employee/employee.component';
 import { CandidateComponent } from './component/candidate/candidate.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -31,7 +30,6 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     AppComponent,
     CompanyComponent,
     DepartmentComponent,
-    SalaryComponent,
     EmployeeComponent,
     CandidateComponent,
     DashboardComponent

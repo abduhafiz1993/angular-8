@@ -2,6 +2,6 @@ export interface Candidate {
   id: number;
   fullName: string;
   email: string;
-  appliedDepartmentId: number | null;
+  appliedPosition: string;
   status: 'applied' | 'screening' | 'hired' | 'rejected';
 }

@@ -35,8 +35,8 @@ export class InMemeoryDataService implements InMemoryDbService{
       { id: 3, firstName: 'Samson', lastName: 'Hailu', email: 'samson@boom.com', departmentId: 3, salaryId: 3 },
     ];
      const candidates: Candidate[] = [
-      { id: 1, fullName: 'Selam Fekadu', email: 'selam@mail.com', appliedDepartmentId: 1, status: 'applied' },
-      { id: 2, fullName: 'Abdi Ali',     email: 'abdi@mail.com',  appliedDepartmentId: 3, status: 'screening' },
+      { id: 1, fullName: 'Selam Fdu', email: 'selam@mail.com', appliedPosition: 'manager', status: 'applied' },
+      { id: 2, fullName: 'Abdi Ali',     email: 'abdi@mail.com',  appliedPosition: 'QA', status: 'screening' },
     ];
 
     return {companies, departments, salaries, employees, candidates};

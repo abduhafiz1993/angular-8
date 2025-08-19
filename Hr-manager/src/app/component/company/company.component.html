@@ -24,8 +24,7 @@
           <mat-label>Edit location</mat-label>
           <input matInput [(ngModel)]="editCompany.location" name="editLocation{{company.id}}" required />
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" style="margin-right:8px;">Update</button>
-        <button mat-raised-button type="button" (click)="cancelEdit()">Cancel</button>
+        <button mat-raised-button color="primary" style="margin-right:8px;" (click)="cancelEdit()">Update</button>
       </form>
     </div>
   </mat-list-item>

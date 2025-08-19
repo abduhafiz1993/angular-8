@@ -1,21 +1,58 @@
 <mat-tab-group>
   <mat-tab label="Candidates">
     <h2>Candidates</h2>
-    <mat-list>
-      <mat-list-item>
-        <div style="width:100%; display:flex; align-items:center; justify-content:space-between;">
-          <span>Candidates Name - Candidates Applied postion</span>
-          <span>
-            <button mat-icon-button color="accent">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </span>
-        </div>
-      </mat-list-item>
-    </mat-list>
+<mat-list>
+  <mat-list-item *ngFor="let candidate of candidates">
+    <div *ngIf="!editCandidate || editCandidate.id !== candidate.id" style="width:100%; display:flex; align-items:center; justify-content:space-between;">
+      <span>Full name: {{ candidate.fullName }} - Email: {{ candidate.email }} - Applied Postion: {{ candidate.appliedPosition }} - Status: {{ candidate.status }}</span>
+      <span>
+        <button mat-icon-button color="accent" (click)="startEdit(candidate)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="delete(candidate.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </span>
+    </div>
+    <div *ngIf="editCandidate && editCandidate.id === candidate.id" style="width:100%;">
+      <form (ngSubmit)="update()" style="display:flex; align-items:center;">
+
+        <mat-form-field 
+        appearance="outline" 
+        style="margin-right:16px;"
+        >
+          <mat-label>Edit Full - name</mat-label>
+          <input matInput [(ngModel)]="editCandidate.fullName" name="editFullName{{candidate.id}}" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="margin-right:16px;">
+          <mat-label>Edit Email </mat-label>
+          <input matInput [(ngModel)]="editCandidate.email" name="editEmail{{candidate.id}}" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="margin-right:16px;">
+          <mat-label>Edit Applied Position</mat-label>
+          <input matInput [(ngModel)]="editCandidate.appliedPosition" name="editAppliedPosition{{candidate.id}}" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="margin-right:16px;">
+          <mat-label>Edit Status </mat-label>
+            <mat-label>Favorite food</mat-label>
+  <mat-select
+  [(ngModel)]="editCandidate.status"
+      name="editStatus{{candidate.id}}"
+      required
+  >
+    <mat-option *ngFor="let food of foods" [value]="food.value">
+      {{food.viewValue}}
+    </mat-option>
+  </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary"  style="margin-right:8px;" (click)="cancelEdit()">Update</button>
+      </form>
+    </div>
+  </mat-list-item>
+</mat-list>
   </mat-tab>
 
   <mat-tab label="Add Candidate">

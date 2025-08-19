@@ -11,6 +11,17 @@ import { Candidate } from 'src/app/models/candidate.model';
 export class CandidateComponent implements OnInit {
 
   candidates: Candidate[] = [];
+  newCandidateName = '';
+  newCandidateAppliedPosition = '';
+  newCandidateEmail = '';
+  newStatus = '';
+    foods = [
+    {value: 'applied', viewValue: 'Applied'},
+    {value: 'screening', viewValue: 'Screening'},
+    {value: 'hired', viewValue: 'Hired'},
+    {value: 'rejected', viewValue: 'Rejected'}
+  ];
+  editCandidate: Candidate | null = null;
 
   constructor(private candidateService: CandidateService) { }
 
@@ -28,6 +39,54 @@ export class CandidateComponent implements OnInit {
       }
     );
   }
+  add() {
+    if (!this.newCandidateName.trim() || !this.newCandidateAppliedPosition.trim()) return;
+    const newCandidate: Candidate = {
+      id: 0, // In-memory-data-service will assign the id
+      fullName: this.newCandidateName,
+      email: this.newCandidateEmail,
+      appliedPosition: this.newCandidateAppliedPosition,
+      status: this.newStatus as 'applied' | 'screening' | 'hired' | 'rejected'
+    };
+    this.candidateService.createCandidate(newCandidate)
+      .subscribe(candidate => {
+        this.candidates.push(candidate);
+        this.newCandidateName = '';
+        this.newCandidateAppliedPosition = '';
+        this.newCandidateEmail = '';
+        this.newStatus = '';
+      });
+  }
+  startEdit(candidate: Candidate) {
+    // Logic to start editing a candidate
+    this.editCandidate = candidate;
+  }
+  update() {
+    if (!this.editCandidate) return;
+    this.candidateService.updateCandidate(this.editCandidate)
+      .subscribe(updatedCandidate => {
+        // Update the properties directly
+        this.editCandidate.fullName = updatedCandidate.fullName;
+        this.editCandidate.email = updatedCandidate.email;
+        this.editCandidate.appliedPosition = updatedCandidate.appliedPosition;
+        this.editCandidate.status = updatedCandidate.status;
+        this.editCandidate = null;
+      });
+  }
+
+  cancelEdit() {
+    this.editCandidate = null;
+  }
   
+  delete(id: number) {
+    this.candidateService.deleteCandidate(id).subscribe(
+      () => {
+        this.candidates = this.candidates.filter(c => c.id !== id);
+      },
+      (error) => {
+        console.error('Error deleting candidate:', error);
+      }
+    );
+  }
 
 }
